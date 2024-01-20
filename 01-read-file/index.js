@@ -1,9 +1,7 @@
-const fs = require('fs');
-// console.log(fs.dirname('/text.txt'));
-fs.readFile('/test.txt', (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  console.log(data);
-});
+const fs = require('node:fs');
+const {join} = require('node:path');
+const correct_path = join(__dirname,'text.txt');
+const rr = fs.createReadStream(correct_path);
+rr.on('readable', () => {
+    console.log(`readable: ${rr.read()}`);
+  });
