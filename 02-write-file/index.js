@@ -15,11 +15,10 @@ readline.on('line', (input) => {
   let data = input.toString();
   if (data.toLocaleUpperCase() === 'EXIT') {
     readline.close();
-  }else{
-    writableable.write("\n"+data+"\n")
+  } else {
+    writableable.write('\n' + data + '\n');
   }
 });
 readline.on('close', () => {
   console.log('\nBy, hope to see you again\n');
 });
-
