@@ -24,11 +24,3 @@ fs.readdir(correct_path, (err, files) => {
     });
   }
 });
-
-// const readable = fs.createReadStream(correct_path);
-// readable.on('readable', function () {
-//   let data;
-//   while ((data = this.read()) !== null) {
-//     console.log(data.toString());
-//   }
-// });
