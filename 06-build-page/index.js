@@ -47,13 +47,11 @@ fs.readdir(assets_original_path, (err, folders) => {
   }
 });
 
-
 // copy html
 const html_write = fs.createWriteStream(html_path);
 const original_html_path = join(__dirname, 'template.html');
 const original_components_path = join(__dirname, 'components');
 const readable_original_html = fs.createReadStream(original_html_path);
-let html_read;
 readable_original_html.on('readable', function () {
   let html;
   while ((html = this.read()) !== null) {
@@ -111,3 +109,25 @@ async function components(html) {
 // console.log(components())
 
 const css_write = fs.createWriteStream(css_path);
+const original_css_path = join(__dirname, 'styles');
+
+fs.readdir(original_css_path, (err, files) => {
+  let isFormat;
+  let readable;
+  if (err) console.log(err);
+  else {
+    files.forEach((file) => {
+      isFormat = file.split('.')[1] === 'css';
+      if (isFormat) {
+        readable = fs.createReadStream(join(original_css_path, file));
+        readable.on('readable', function () {
+          let data;
+          while ((data = this.read()) !== null) {
+            // console.log(data.toString());
+            css_write.write(data);
+          }
+        });
+      }
+    });
+  }
+});
