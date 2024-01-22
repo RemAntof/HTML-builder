@@ -55,33 +55,10 @@ const readable_original_html = fs.createReadStream(original_html_path);
 readable_original_html.on('readable', function () {
   let html;
   while ((html = this.read()) !== null) {
-    // console.log(html.toString())
-
-    //   console.log(data.toString().replace("{{header}}","test"));
-    // html_write.write('\n' + html + '\n');
     components(html.toString());
   }
 });
 
-// fs.readdir(original_components_path, (err, files) => {
-//   let readable;
-//   if (err) console.log(err);
-//   else {
-//     files.forEach((file) => {
-//       let name = file.split('.')[0];
-//       readable = fs.createReadStream(join(original_components_path, file));
-//       readable.on('readable', function () {
-//         let data;
-//         while ((data = this.read()) !== null) {
-//           // console.log(html.toString().replace('{{'+name+'}}',data.toString))
-//           // html = html.toString().replace('{{'+name+'}}',data.toString)
-//           // console.log(html)
-//           tryasda = data.toString();
-//         }
-//       });
-//     });
-//   }
-// });
 
 async function components(html) {
   fs.readdir(original_components_path, (err, files) => {
@@ -94,7 +71,6 @@ async function components(html) {
         readable.on('readable', function () {
           let data;
           while ((data = this.read()) !== null) {
-            // console.log(html.toString().replace('{{'+name+'}}',data.toString))
             html = html.toString().replace('{{' + name + '}}', data.toString());
             if (index === files.length - 1) {
               html_write.write(html);
@@ -102,11 +78,9 @@ async function components(html) {
           }
         });
       });
-      // console.log(true);
     }
   });
 }
-// console.log(components())
 
 const css_write = fs.createWriteStream(css_path);
 const original_css_path = join(__dirname, 'styles');
@@ -123,7 +97,6 @@ fs.readdir(original_css_path, (err, files) => {
         readable.on('readable', function () {
           let data;
           while ((data = this.read()) !== null) {
-            // console.log(data.toString());
             css_write.write(data);
           }
         });

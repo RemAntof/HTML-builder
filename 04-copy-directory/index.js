@@ -8,7 +8,6 @@ fs.mkdir(correct_path, { recursive: true }, (err) => {
   if (err) {
     return console.error(err);
   }
-  console.log('Directory created successfully!');
 });
 
 fs.readdir(original_path, (err, files) => {
